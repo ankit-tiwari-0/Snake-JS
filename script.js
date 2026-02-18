@@ -165,3 +165,39 @@ addEventListener("keydown", (event) => {
     }
 })
 
+
+// ✅ Mobile Touch Controls (Swipe Support)
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+board.addEventListener("touchstart", (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+});
+
+board.addEventListener("touchend", (e) => {
+    let touchEndX = e.changedTouches[0].clientX;
+    let touchEndY = e.changedTouches[0].clientY;
+
+    let diffX = touchEndX - touchStartX;
+    let diffY = touchEndY - touchStartY;
+
+    // Detect horizontal swipe
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0) {
+            direction = "right";
+        } else {
+            direction = "left";
+        }
+    } 
+    // Detect vertical swipe
+    else {
+        if (diffY > 0) {
+            direction = "down";
+        } else {
+            direction = "up";
+        }
+    }
+});
+
